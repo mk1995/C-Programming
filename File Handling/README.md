@@ -7,8 +7,6 @@
 
 ## File Handling in C programming
 
-## File Handling in C
-
 During programming, it is often required that we need to work with different types of file. C programming supports file handling and allows us to read and write files programmatically. 
 
 ## COncept of data files
@@ -63,5 +61,6 @@ fopen()
 
 General syntax for fopen() is:
 
-
+```
 file_pointer_name = fopen("filename", "mode");
+```
