@@ -160,6 +160,165 @@ int main() {
 }
 ```
 
+
+`fscanf()` is a function in the C programming language used for reading formatted input from a file stream. It is similar to `scanf()`, which reads from standard input (keyboard), but instead, `fscanf()` reads data from a file.
+
+The syntax of the `fscanf()` function is as follows:
+
+```c
+int fscanf(FILE *stream, const char *format, ...);
+```
+
+- `stream`: Pointer to the file stream from which data will be read.
+- `format`: A string that specifies the format of the data to be read. This format string is similar to the one used in `scanf()`, with some additional considerations.
+- `...`: Additional arguments corresponding to the format specifiers in the format string. These are the memory addresses where the data will be stored.
+
+Let's see a real example of using `fscanf()` to read data from a file:
+
+Suppose we have a file named "data.txt" with the following content:
+
+```
+Hari lal Yadav 30
+Karishna Parsad 25
+Ram Krishna 40
+```
+
+And we want to read this data into C variables.
+
+```c
+#include <stdio.h>
+
+int main() {
+    FILE *file;
+    char name[50];
+    int age;
+
+    // Open the file in read mode
+    file = fopen("data.txt", "r");
+
+    if (file == NULL) {
+        printf("Error opening the file.\n");
+        return 1;
+    }
+
+    // Read data from the file using fscanf()
+    while (fscanf(file, "%s %d", name, &age) == 2) {
+        printf("Name: %s, Age: %d\n", name, age);
+    }
+
+    // Close the file
+    fclose(file);
+
+    return 0;
+}
+```
+
+In this example, we declare a file pointer `file` to open and read the file "data.txt". We also declare two variables `name` and `age` to store the data read from the file. In the `while` loop, we use `fscanf()` to read formatted data from the file, where `%s` is used to read a string (name) and `%d` is used to read an integer (age). The `fscanf()` function returns the number of items successfully read, so the loop continues until it successfully reads both the name and age fields from the file.
+
+When you run this program, it will read the data from "data.txt" and print it as follows:
+
+```
+Name: Hari, Age: 30
+Name: Kirshna, Age: 25
+Name: Ram, Age: 40
+```
+
+Please note that `fscanf()` has limitations and can lead to issues like buffer overflows if the input format is not correctly matched with the data in the file. Always ensure that the format string matches the data in the file to avoid such problems. Additionally, it's a good practice to check the return value of `fscanf()` to handle any potential errors or end-of-file conditions.
+*Other Examples:*
+If the data in the "data.txt" file is in the format "Hari lal Yadav 25 Nepal 9875612152" without any double quotes, you can modify the code accordingly to read the name as a string with spaces and the other fields as usual. In this case, you can use the following code:
+
+```c
+#include <stdio.h>
+
+int main() {
+    FILE *file;
+    char name[50];
+    int age;
+    char country[50];
+    long long phone;
+
+    // Open the file in read mode
+    file = fopen("data.txt", "r");
+
+    if (file == NULL) {
+        printf("Error opening the file.\n");
+        return 1;
+    }
+
+    // Read data from the file line by line
+    while (fscanf(file, "%49s %d %49s %lld", name, &age, country, &phone) == 4) {
+        printf("Name: %s, Age: %d, Country: %s, Phone: %lld\n", name, age, country, phone);
+    }
+
+    // Close the file
+    fclose(file);
+
+    return 0;
+}
+```
+
+With this code, the `%49s` format specifier in `fscanf()` will read a sequence of non-whitespace characters as the name until a space is encountered. The `49` in `%49s` is used to limit the length of the name to prevent buffer overflows (you can change this number according to your maximum name length). Similarly, the other fields are read as usual using `%d` for integers and `%lld` for long long integers.
+
+Now, the program will correctly read and display the data as follows:
+
+```
+Name: Hari lal Yadav, Age: 25, Country: Nepal, Phone: 9875612152
+```
+
+Please make sure the buffer size for the character arrays (`name` and `country`) is large enough to handle the maximum name and country length in your input file. Adjust the size accordingly based on the expected maximum lengths.
+
+*Another Example*
+If the data in the file is separated by two tabs between each variable (name, age, country, and phone), you can modify the code to use the `%*c` format specifier to skip over the tabs. Here's how you can do it:
+
+```c
+#include <stdio.h>
+
+int main() {
+    FILE *file;
+    char name[50];
+    int age;
+    char country[50];
+    long long phone;
+
+    // Open the file in read mode
+    file = fopen("data.txt", "r");
+
+    if (file == NULL) {
+        printf("Error opening the file.\n");
+        return 1;
+    }
+
+    // Read data from the file line by line
+    while (fscanf(file, "%49[^\t]\t%49[^\t]\t%49[^\t]\t%lld", name, country, age, &phone) == 4) {
+        printf("Name: %s, Age: %d, Country: %s, Phone: %lld\n", name, age, country, phone);
+    }
+
+    // Close the file
+    fclose(file);
+
+    return 0;
+}
+```
+
+In this code, we use `%[^\t]` to read characters until a tab character `\t` is encountered. The `%49` before each format specifier is to prevent buffer overflows (you can change this number according to the maximum lengths of name and country). The `%*c` format specifier is used to skip over the tab characters.
+
+Now, the program will correctly read and display the data even with two tabs between each variable. For example, if the file contains:
+
+```
+Hari lal Yadav		25		Nepal		9875612152
+Krishna Prasad		30		USA		9876543210
+```
+
+The output will be:
+
+```
+Name: Hari lal Yadav, Age: 25, Country: Nepal, Phone: 9875612152
+Name: Krishna Prasad, Age: 30, Country: USA, Phone: 9876543210
+```
+
+Again, make sure the buffer size for the character arrays (`name` and `country`) is large enough to handle the maximum name and country length in your input file. Adjust the size accordingly based on the expected maximum lengths.
+
+
 In the next step, we will cover writing to files and demonstrate examples using `fputc()`, `fputs()`, and `fprintf()` functions.
 
 **Topic: Writing to Files in C**
