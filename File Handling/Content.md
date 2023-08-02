@@ -225,7 +225,7 @@ Name: Ram, Age: 40
 
 Please note that `fscanf()` has limitations and can lead to issues like buffer overflows if the input format is not correctly matched with the data in the file. Always ensure that the format string matches the data in the file to avoid such problems. Additionally, it's a good practice to check the return value of `fscanf()` to handle any potential errors or end-of-file conditions.
 
-##Other Examples:##
+** Another Exmaple **
 If the data in the "data.txt" file is in the format "Hari lal Yadav 25 Nepal 9875612152" without any double quotes, you can modify the code accordingly to read the name as a string with spaces and the other fields as usual. In this case, you can use the following code:
 
 ```c
@@ -268,7 +268,7 @@ Name: Hari lal Yadav, Age: 25, Country: Nepal, Phone: 9875612152
 
 Please make sure the buffer size for the character arrays (`name` and `country`) is large enough to handle the maximum name and country length in your input file. Adjust the size accordingly based on the expected maximum lengths.
 
-##Another Example##
+** Another Example **
 If the data in the file is separated by two tabs between each variable (name, age, country, and phone), you can modify the code to use the `%*c` format specifier to skip over the tabs. Here's how you can do it:
 
 ```c
