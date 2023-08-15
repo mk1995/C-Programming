@@ -1,4 +1,4 @@
-##Here's a comprehensive list of format specifiers you can use with the `fscanf` function in C:
+**Here's a comprehensive list of format specifiers you can use with the `fscanf` function in C:**
 
 - `%d`: Read an integer.
 - `%i`: Read an integer (supports hexadecimal, octal, and decimal formats).
@@ -32,4 +32,7 @@
 - `%[^\n]`: Read characters until encountering a newline.
 - `%[^\t\n]`: Read characters until encountering a tab or newline.
 
-Remember that the format specifiers must match the data format in your input file. Incorrect format specifiers can lead to incorrect readings and unexpected behavior.
+```
+Remember that the format specifiers must match the data format in your input file. 
+Incorrect format specifiers can lead to incorrect readings and unexpected behavior.
+```
